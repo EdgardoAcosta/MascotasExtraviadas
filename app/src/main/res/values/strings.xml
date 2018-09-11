@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Mascostas Extraviadas</string>
+    <string name="title_activity_main">Mascostas Extraviadas</string>
+
+    <string name="register_name">Nombre del perro</string>
+    <string name="register_spinner">Raza</string>
+    <string name="register_email">Correo</string>
+    <string name="register_phone">Telefono</string>
+    <string name="register_address">Direccion</string>
+    <string name="register_buttonImage">Tomar Foto</string>
+    <string name="register_buttonCancel">Cancelar</string>
+    <string name="register_buttonSave">Salvar</string>
+    <string name="register_mode_edit">Modo Editar</string>
+    <string name="register_mode_show">Modo Mostrar</string>
+    <string name="register_mode_register">Modo Registrar</string>
+
+    <string-array name="razas_array">
+        <item>Pequines</item>
+        <item>Chihuahua</item>
+        <item>Pastor Aleman</item>
+        <item>York Shire</item>
+        <item>Labrador</item>
+        <item>Dalmata</item>
+        <item>Husky</item>
+        <item>Pitbul</item>
+        <item>Indefinido</item>
+    </string-array>
+
+
+</resources>
