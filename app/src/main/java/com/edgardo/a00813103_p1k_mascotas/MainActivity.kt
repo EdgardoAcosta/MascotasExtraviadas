@@ -12,6 +12,7 @@ package com.edgardo.a00813103_p1k_mascotas
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -19,10 +20,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.edgardo.a00813103_p1k_mascotas.R.styleable.Snackbar
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.row.*
 
+var list_favorits : ArrayList<Int> = arrayListOf()
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     var adapterMascosta: MascotaAdapter? = null
-    var mascotList : ArrayList<Mascota> = MacostaData().listamascotas
+    var mascotList: ArrayList<Mascota>? = arrayListOf() //= MacostaData().listamascotas
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +61,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 //                    .setAction("Action", null).show()
 
         }
-        adapterMascosta = MascotaAdapter(this, mascotList)
+        if (mascotList!!.size == 0) {
+            Toast.makeText(applicationContext,
+                    "No dogs on list", Toast.LENGTH_SHORT).show()
+        }
+        adapterMascosta = MascotaAdapter(this, mascotList!!)
 
         list_dogs.adapter = adapterMascosta
 
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val mascosta: Mascota = mascotList[position]
+        val mascosta: Mascota = mascotList!![position]
         Log.d("Row Clicked", position.toString())
 
         val intent = Intent(this, RegisterActivity::class.java)
@@ -94,8 +102,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
                 val newMascota = data?.getSerializableExtra(RegisterActivity.NEW_REGISTER) as Mascota
+                val thumbnailBitmap = data.getParcelableExtra<Bitmap>("thumbnailBitmap")
                 Log.d("Main-Resume", newMascota.Nombre)
-                mascotList.add(newMascota)
+                Log.d("Bitmap", thumbnailBitmap.toString())
+                newMascota.Id_Imagen = thumbnailBitmap
+                mascotList!!.add(newMascota)
                 adapterMascosta?.notifyDataSetChanged()
             }
 
@@ -115,16 +126,42 @@ class MascotaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
 
         val tvName = rowView.findViewById(R.id.text_nombre) as TextView
         var tvRaza = rowView.findViewById(R.id.text_raza) as TextView
+        var tvDate = rowView.findViewById(R.id.text_fecha_agregado) as TextView
         val ivDog = rowView.findViewById(R.id.image_mascota) as ImageView
+        val favorito = rowView.findViewById(R.id.button_favorito) as ImageButton
 
 
-//        Log.d("ID ", mascota.Raza.toString())
-//        Log.d("arreglo ", context.resources.getStringArray(R.array.razas_array)[mascota.Raza])
-        var dogName = context.resources.getStringArray(R.array.razas_array)[mascota.Raza]
+        var dogName = context.resources.getStringArray(R.array.razas_array)[mascota!!.Raza]
 
-        tvName.text = mascota.Nombre
+        tvName.text = mascota!!.Nombre
         tvRaza.text = dogName
-        ivDog.setImageResource(mascota.Id_Imagen)
+        tvDate.text = mascota!!.Fecha
+
+
+        favorito.setOnClickListener { v: View? ->
+//            click_Favorito(v!!, mascota)
+            Toast.makeText(context,
+                    "Click button", Toast.LENGTH_SHORT).show()
+        }
+
+
+        ivDog.setImageBitmap(mascota.Id_Imagen)
         return rowView
     }
+
+    private fun click_Favorito(v: View, mascota: Mascota) {
+
+        Log.d("View Id", v.id.toString())
+        val favorito = v.findViewById(R.id.button_favorito) as ImageButton
+//        context.resources.drawable(favorito)
+//
+//        if (context.resources.getDrawable(favorito) == getDrawable R.drawable.ic_star_full) {
+//            mascota.Favorito = false
+//            favorito.setImageResource(R.drawable.ic_star_empty)
+//        } else {
+//            mascota.Favorito = false
+//            favorito.setImageResource(R.drawable.ic_star_full)
+//        }
+    }
 }
+
