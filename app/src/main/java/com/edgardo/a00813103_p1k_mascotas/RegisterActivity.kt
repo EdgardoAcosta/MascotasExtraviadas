@@ -9,10 +9,11 @@
 
 package com.edgardo.a00813103_p1k_mascotas
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Spinner
 import android.widget.ArrayAdapter
@@ -22,6 +23,11 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 
 class RegisterActivity : AppCompatActivity() {
+
+    companion object {
+
+        const val NEW_REGISTER: String = "show or edit"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,8 @@ class RegisterActivity : AppCompatActivity() {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.adapter = adapter
+
+        button_image.setOnClickListener { click(it) }
 
 
         val extras = intent.extras ?: return
@@ -83,6 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                         "${resources.getString(R.string.register_mode_register)}", Toast.LENGTH_SHORT).show()
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
+                button_save.setOnClickListener { click(it) }
             }
             "edit" -> {
                 Toast.makeText(applicationContext,
@@ -97,6 +106,86 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+
+    fun click(view: View) {
+
+
+        when (view.id) {
+            R.id.button_save -> {
+                if (validateInputs()) {
+                    Toast.makeText(applicationContext,
+                            "Dog saved", Toast.LENGTH_SHORT).show()
+                    var newMascot = Mascota(label_name.text.toString(), spinner_razas.selectedItemPosition,
+                            label_address.text.toString(), label_phone.text.toString(),
+                            label_email.text.toString(), R.drawable.defaul_dog)
+
+
+                    val intent = Intent(this, MainActivity::class.java)
+
+                    intent.putExtra(NEW_REGISTER, newMascot)
+
+                    setResult(Activity.RESULT_OK, intent)
+
+                    finish()
+
+
+                }
+
+            }
+            R.id.button_image -> {
+                Toast.makeText(applicationContext,
+                        "Take photo", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
+
+
+    private fun validateInputs(): Boolean {
+
+        var verified = true
+
+
+        label_name.error = null
+        label_email.error = null
+        label_phone.error = null
+        label_address.error = null
+
+        if (label_name.text.toString().trim().isEmpty()) {
+//            label_name.setHint(R.string.register_msg_error)//it gives user to hint
+            label_name.error = resources.getString(R.string.register_msg_error)
+            verified = false
+        } else if (label_email.text.toString().trim().isEmpty()) {
+//            label_email.setHint(R.string.register_msg_error)//it gives user to hint
+            label_name.error = resources.getString(R.string.register_msg_error)
+            verified = false
+        } else if (label_phone.text.toString().trim().isEmpty()) {
+//            label_phone.setHint(R.string.register_msg_error)//it gives user to hint
+            label_name.error = resources.getString(R.string.register_msg_error)
+            verified = false
+        } else if (label_address.text.toString().trim().isEmpty()) {
+//            label_name.setHint(R.string.register_msg_error)//it gives user to hint
+            label_name.error = resources.getString(R.string.register_msg_error)
+            verified = false
+        } else if (label_address.text.toString().trim().isEmpty()) {
+//            label_name.setHint(R.string.register_msg_error)//it gives user to hint
+            label_name.error = resources.getString(R.string.register_msg_error)
+            verified = false
+        }
+
+        return verified
+
+    }
+
+    private fun validateImage(): Int {
+        if (image_foto.id == R.drawable.defaul_dog) {
+            Log.d("Image compare", "Is default")
+            return R.drawable.defaul_dog
+        }
+        return image_foto.id
+    }
+
+
     private fun disableEditText(editText: EditText) {
         editText.isFocusable = false
         editText.isEnabled = false
@@ -104,6 +193,7 @@ class RegisterActivity : AppCompatActivity() {
         editText.keyListener = null
 //        editText.setBackgroundColor(Color.TRANSPARENT)
     }
+
 
     fun finishActivity(v: View) {
         finish()

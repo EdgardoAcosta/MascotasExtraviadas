@@ -13,6 +13,7 @@
     <string name="register_mode_edit">Modo Editar</string>
     <string name="register_mode_show">Modo Mostrar</string>
     <string name="register_mode_register">Modo Registrar</string>
+    <string name="register_msg_error">Campo obligatorio</string>
 
     <string-array name="razas_array">
         <item>Pequines</item>

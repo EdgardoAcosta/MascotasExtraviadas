@@ -8,7 +8,9 @@
  */
 package com.edgardo.a00813103_p1k_mascotas
 
+import java.io.Serializable
 
-class Mascota(var Nombre: String?, var Raza: Int= 0, var Ubicacion: String?,
-              var Telefono: String?, var Correo: String?, var Id_Imagen: Int = 0)
+
+class Mascota(var Nombre: String?, var Raza: Int = 0, var Ubicacion: String?,
+              var Telefono: String?, var Correo: String?, var Id_Imagen: Int = 0) : Serializable
 

@@ -9,10 +9,10 @@
 
 package com.edgardo.a00813103_p1k_mascotas
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,9 +35,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         const val PHONE_KEY: String = "phone"
         const val ADDRESS_KEY: String = "address"
         const val ID_IMAGE_KEY: String = "idImage"
+
     }
 
-    val mascotas: ArrayList<Mascota> = MacostaData().listamascotas
+    var adapterMascosta: MascotaAdapter? = null
+    var mascotList : ArrayList<Mascota> = MacostaData().listamascotas
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,31 +49,34 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         fab_registrar.setOnClickListener { view ->
             val intent = Intent(this, RegisterActivity::class.java)
 
-            intent.putExtra(BUTTON_CLICKED,"register")
-            startActivity(intent)
+            intent.putExtra(BUTTON_CLICKED, "register")
+            startActivityForResult(intent, 0)
 
 
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
 
         }
+        adapterMascosta = MascotaAdapter(this, mascotList)
 
+        list_dogs.adapter = adapterMascosta
 
-        val adapter = MascostaAdapter(this, mascotas)
-        list_dogs.adapter = adapter
-        adapter?.notifyDataSetChanged()
+        runOnUiThread {
+            adapterMascosta?.notifyDataSetChanged()
+        }
+
         list_dogs.setOnItemClickListener(this)
 
 
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val mascosta: Mascota = mascotas[position]
+        val mascosta: Mascota = mascotList[position]
         Log.d("Row Clicked", position.toString())
 
         val intent = Intent(this, RegisterActivity::class.java)
 
-        intent.putExtra(BUTTON_CLICKED,"show")
+        intent.putExtra(BUTTON_CLICKED, "show")
         intent.putExtra(NAME_KEY, mascosta.Nombre)
         intent.putExtra(Raza_KEY, mascosta.Raza)
         intent.putExtra(EMAIL_KEY, mascosta.Correo)
@@ -80,11 +86,26 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         startActivity(intent)
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d("Activity Result", requestCode.toString())
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
+                val newMascota = data?.getSerializableExtra(RegisterActivity.NEW_REGISTER) as Mascota
+                Log.d("Main-Resume", newMascota.Nombre)
+                mascotList.add(newMascota)
+                adapterMascosta?.notifyDataSetChanged()
+            }
+
+        }
+
+    }
 }
 
 
-
-class MascostaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
+class MascotaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
         ArrayAdapter<Mascota>(context, 0, mascotas) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -97,13 +118,12 @@ class MascostaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
         val ivDog = rowView.findViewById(R.id.image_mascota) as ImageView
 
 
-
 //        Log.d("ID ", mascota.Raza.toString())
 //        Log.d("arreglo ", context.resources.getStringArray(R.array.razas_array)[mascota.Raza])
         var dogName = context.resources.getStringArray(R.array.razas_array)[mascota.Raza]
 
         tvName.text = mascota.Nombre
-        tvRaza.text =  dogName
+        tvRaza.text = dogName
         ivDog.setImageResource(mascota.Id_Imagen)
         return rowView
     }
