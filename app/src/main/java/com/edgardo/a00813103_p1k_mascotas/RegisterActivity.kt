@@ -171,6 +171,7 @@ class RegisterActivity : AppCompatActivity() {
 
             }
             "register" -> {
+                checkBox_favorites.setVisibility(View.INVISIBLE)
                 Log.d("ToolName", resources.getString(R.string.title_activity_register_add))
 
                 toolbar_register.title = resources.getString(R.string.title_activity_register_add)
@@ -338,15 +339,11 @@ class RegisterActivity : AppCompatActivity() {
             label_name.error = resources.getString(R.string.register_msg_error)
             verified = false
         } else if (!hasThumbnail) {
-//            button_image.error = resources.getString(R.string.register_msg_error)
-
             val drawable = resources.getDrawable(R.drawable.default_dog1) as BitmapDrawable
             val bitmap = drawable.getBitmap();
-//            val stream = ByteArrayOutputStream()
-//            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
 
             thumbnailBitmap = bitmap
-//            return false
         } else if (label_email.text.toString().trim().isEmpty()) {
             label_email.error = resources.getString(R.string.register_msg_error)
             verified = false
