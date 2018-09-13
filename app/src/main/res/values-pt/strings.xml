@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Titles-->
+    <string name="app_name">Animais Perdidos</string>
+    <string name="title_activity_main">Animais Perdidos</string>
+    <string name="title_activity_register_add">Adicionar um Cachorro</string>
+    <string name="title_activity_register_view">informação de \u0020</string>
+    <string name="title_activity_favorites">Favorites</string>
+    <!--Views-->
+    <string name="register_name">Novo Cachorro</string>
+    <string name="register_spinner">Raça</string>
+    <string name="register_email">Email</string>
+    <string name="register_phone">Telefone</string>
+    <string name="register_address">Endereco</string>
+    <string name="register_buttonImage">Tirar foto</string>
+    <string name="register_buttonCancel">Cancel</string>
+    <string name="register_buttonSave">Salvar</string>
+    <string name="register_lable_spinner">Raça</string>
+    <string name="register_lable_checkbox">Favorites</string>
+    <string name="register_lable_imageView">Imagem</string>
+
+    <!--Messages-->
+    <string name="register_mode_edit">Modo editar</string>
+    <string name="register_mode_show">Modo mostrar</string>
+    <string name="register_mode_register">Modo registrar</string>
+    <string name="register_msg_error">Obrigatório</string>
+    <string name="register_msg_success">Obrigatório</string>
+    <string name="register_msg_change_made">Alterações Salvas</string>
+    <string name="main_empty_list">Lista vazia</string>
+
+    <!--Spinner-->
+    <string-array name="razas_array">
+        <item>Indefinido</item>
+        <item>Pequines</item>
+        <item>Chihuahua</item>
+        <item>Pastor Aleman</item>
+        <item>York Shire</item>
+        <item>Labrador</item>
+        <item>Dalmata</item>
+        <item>Husky</item>
+        <item>Pitbul</item>
+    </string-array>
+
+
+</resources>

@@ -29,6 +29,7 @@
 
     <!--Spinner-->
     <string-array name="razas_array">
+        <item>Indefinido</item>
         <item>Pequines</item>
         <item>Chihuahua</item>
         <item>Pastor Aleman</item>
@@ -37,7 +38,6 @@
         <item>Dalmata</item>
         <item>Husky</item>
         <item>Pitbul</item>
-        <item>Indefinido</item>
     </string-array>
 
 

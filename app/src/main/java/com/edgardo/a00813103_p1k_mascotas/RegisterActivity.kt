@@ -13,6 +13,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -27,7 +28,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -60,6 +63,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
+        //Toolbar title an back arrow
         val myToolbar = findViewById<View>(R.id.toolbar_register) as Toolbar
         myToolbar.title = ""
         setSupportActionBar(myToolbar)
@@ -365,6 +369,13 @@ class RegisterActivity : AppCompatActivity() {
         if (intent.resolveActivity(packageManager) != null) {
             startActivityForResult(intent, TAKE_PHOTO_REQUEST)
         }
+    }
+
+    private fun hideSoftKeyboard() {
+
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm!!.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+
     }
 
 

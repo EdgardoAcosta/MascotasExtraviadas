@@ -15,11 +15,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:theme="@style/AppTheme"
-        app:backgroundTint="@android:color/transparent"
         android:scaleType="center"
-        app:rippleColor="@android:color/transparent"
-        app:srcCompat="@drawable/ic_add_circle_orange_24dp" />
+        android:theme="@style/AppTheme"
+        app:backgroundTint="?android:attr/colorActivatedHighlight"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_favorito"
@@ -28,8 +27,7 @@
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="center"
-        app:backgroundTint="@android:color/transparent"
-        app:rippleColor="@android:color/transparent"
-        app:srcCompat="@drawable/ic_favorite_read_24dp" />
+        app:backgroundTint="@android:color/darker_gray"
+        app:srcCompat="@drawable/ic_favorite_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:toolbarStyle">@style/ToolBarStyle</item>
+        <item name="android:button">@style/AppTheme.buttons</item>
 
 
     </style>
@@ -20,6 +21,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.buttons" parent="Theme.AppCompat.Light">
+        <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+
+
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
