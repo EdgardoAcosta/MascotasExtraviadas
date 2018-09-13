@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Mascostas Extraviadas</string>
     <string name="title_activity_main">Mascostas Extraviadas</string>
+    <string name="title_activity_register_add">Agrega una mascota</string>
+    <string name="title_activity_register_view">Informacion de \u0020</string>
+    <string name="title_activity_favorites">Favoritos</string>
 
     <string name="register_name">Nombre del perro</string>
     <string name="register_spinner">Raza</string>
