@@ -342,19 +342,23 @@ class RegisterActivity : AppCompatActivity() {
         if (label_name.text.toString().trim().isEmpty()) {
             label_name.error = resources.getString(R.string.register_msg_error)
             verified = false
-        } else if (!hasThumbnail) {
+        }
+        if (!hasThumbnail) {
             val drawable = resources.getDrawable(R.drawable.default_dog1) as BitmapDrawable
             val bitmap = drawable.getBitmap();
 
 
             thumbnailBitmap = bitmap
-        } else if (label_email.text.toString().trim().isEmpty()) {
+        }
+        if (label_email.text.toString().trim().isEmpty()) {
             label_email.error = resources.getString(R.string.register_msg_error)
             verified = false
-        } else if (label_phone.text.toString().trim().isEmpty()) {
+        }
+        if (label_phone.text.toString().trim().isEmpty()) {
             label_phone.error = resources.getString(R.string.register_msg_error)
             verified = false
-        } else if (label_address.text.toString().trim().isEmpty()) {
+        }
+        if (label_address.text.toString().trim().isEmpty()) {
             label_address.error = resources.getString(R.string.register_msg_error)
             verified = false
         }
