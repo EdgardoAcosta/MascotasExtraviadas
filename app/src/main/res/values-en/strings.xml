@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Titles-->
+    <string name="app_name">Lost Pets</string>
+    <string name="title_activity_main">Lost Pets</string>
+    <string name="title_activity_register_add">New Pet</string>
+    <string name="title_activity_register_view">Information of \u0020</string>
+    <string name="title_activity_favorites">Favorites</string>
+    <!--Views-->
+    <string name="register_name">Name of dog</string>
+    <string name="register_spinner">Race</string>
+    <string name="register_email">Email</string>
+    <string name="register_phone">Phone</string>
+    <string name="register_address">Address</string>
+    <string name="register_buttonImage">Take Picture</string>
+    <string name="register_buttonCancel">Cancel</string>
+    <string name="register_buttonSave">Save</string>
+    <string name="register_lable_spinner">Race</string>
+    <string name="register_lable_checkbox">Favorites</string>
+    <string name="register_lable_imageView">Image</string>
+
+    <!--Messages-->
+    <string name="register_mode_edit">Edit Mode</string>
+    <string name="register_mode_show">Show Mode</string>
+    <string name="register_mode_register">Register Mode</string>
+    <string name="register_msg_error">Required</string>
+    <string name="register_msg_success">Campo obligatorio</string>
+    <string name="register_msg_change_made">Change saved</string>
+    <string name="main_empty_list">Empty list</string>
+
+    <!--Spinner-->
+    <string-array name="razas_array">
+        <item>Undefined</item>
+        <item>Pekingese</item>
+        <item>Chihuahua</item>
+        <item>German shepherd</item>
+        <item>York Shire</item>
+        <item>Labrador</item>
+        <item>Dalmata</item>
+        <item>Husky</item>
+        <item>Pitbul</item>
+    </string-array>
+
+
+</resources>
