@@ -17,6 +17,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -32,6 +33,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,7 +66,6 @@ class RegisterActivity : AppCompatActivity() {
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
-
 
 
         // Check orientation of vie
@@ -167,19 +168,12 @@ class RegisterActivity : AppCompatActivity() {
                 button_save.isEnabled = false
                 button_save.isCursorVisible = false
 
-                Toast.makeText(applicationContext,
-                        "${resources.getString(R.string.register_mode_show)}", Toast.LENGTH_SHORT).show()
-
 
             }
             "register" -> {
                 Log.d("ToolName", resources.getString(R.string.title_activity_register_add))
 
                 toolbar_register.title = resources.getString(R.string.title_activity_register_add)
-                Toast.makeText(applicationContext,
-                        "${resources.getString(R.string.register_mode_register)}", Toast.LENGTH_SHORT).show()
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
             }
             "edit" -> {
                 toolbar_register.title = "Edit mode"
@@ -202,34 +196,35 @@ class RegisterActivity : AppCompatActivity() {
         when (view.id) {
             R.id.button_save -> {
 
+                //Check if read only but from favorites
                 if (!checkBoxViewMode) {
+                    //Validate all inputs are not empty
                     if (validateInputs()) {
-                        Toast.makeText(applicationContext,
-                                "Dog saved", Toast.LENGTH_SHORT).show()
 
-
+                        //Create new date of creation
                         val df = SimpleDateFormat("dd-MM-yy -  h:mm a")
                         val date = df.format(Calendar.getInstance().getTime()).toString()
 
-
+                        //Create new element from data
                         var newMascot = Mascota(label_name.text.toString(), spinner_razas.selectedItemPosition,
                                 label_address.text.toString(), date, label_phone.text.toString(),
                                 label_email.text.toString(), thumbnailBitmap, checkBox_favorites.isChecked)
 
 
                         val intent = Intent(this, MainActivity::class.java)
-//                    intent.putExtra("thumbnailBitmap", thumbnailBitmap)
 
                         intent.putExtra(NEW_REGISTER, newMascot)
 
                         setResult(Activity.RESULT_OK, intent)
+                        // Retun to main
                         finish()
 
 
                     }
                 } else {
-                    Toast.makeText(applicationContext,
-                            "Fav Change", Toast.LENGTH_SHORT).show()
+                    //Change made only for favorite option
+                    Toast.makeText(applicationContext, getString(R.string.register_msg_change_made),
+                            Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this, MainActivity::class.java)
 //                    intent.putExtra("thumbnailBitmap", thumbnailBitmap)
@@ -245,8 +240,6 @@ class RegisterActivity : AppCompatActivity() {
 
             }
             R.id.button_image -> {
-                Toast.makeText(applicationContext,
-                        "Take photo", Toast.LENGTH_SHORT).show()
                 activateCamera()
 
             }
@@ -257,7 +250,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    //
+    //Function to check status of checkbox
     fun checkBoxClicker(view: View) {
 
         if (!button_save.isEnabled) {
@@ -302,8 +295,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
             } else {
-                Toast.makeText(applicationContext,
-                        "Imagen Cacelada", Toast.LENGTH_SHORT).show()
+                // Image Canceled
             }
         }
     }
@@ -346,8 +338,15 @@ class RegisterActivity : AppCompatActivity() {
             label_name.error = resources.getString(R.string.register_msg_error)
             verified = false
         } else if (!hasThumbnail) {
-            button_image.error = resources.getString(R.string.register_msg_error)
-            return false
+//            button_image.error = resources.getString(R.string.register_msg_error)
+
+            val drawable = resources.getDrawable(R.drawable.default_dog1) as BitmapDrawable
+            val bitmap = drawable.getBitmap();
+//            val stream = ByteArrayOutputStream()
+//            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
+            thumbnailBitmap = bitmap
+//            return false
         } else if (label_email.text.toString().trim().isEmpty()) {
             label_email.error = resources.getString(R.string.register_msg_error)
             verified = false
@@ -371,8 +370,5 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun initOnFocus(v: View) {
-        label_name.setOnFocusChangeListener { v, hasFocus -> }
-    }
 
 }

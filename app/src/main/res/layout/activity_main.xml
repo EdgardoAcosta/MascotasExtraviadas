@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/main_id">
 
     <include layout="@layout/content_main" />
 
@@ -14,10 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="?android:attr/colorFocusedHighlight"
-        app:elevation="0dp"
         android:theme="@style/AppTheme"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:backgroundTint="@android:color/transparent"
+        android:scaleType="center"
+        app:rippleColor="@android:color/transparent"
+        app:srcCompat="@drawable/ic_add_circle_orange_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_favorito"
@@ -25,7 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="?attr/colorControlHighlight"
-        app:srcCompat="@drawable/ic_favorite_black_24dp" />
+        android:scaleType="center"
+        app:backgroundTint="@android:color/transparent"
+        app:rippleColor="@android:color/transparent"
+        app:srcCompat="@drawable/ic_favorite_read_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

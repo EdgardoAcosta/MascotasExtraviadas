@@ -10,9 +10,11 @@
 package com.edgardo.a00813103_p1k_mascotas
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,43 +32,39 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     companion object {
 
-        const val BUTTON_CLICKED: String = "showOrEdit"
         const val NAME_KEY: String = "nombre"
         const val Raza_KEY: String = "raza"
         const val EMAIL_KEY: String = "email"
         const val PHONE_KEY: String = "phone"
-        const val ADDRESS_KEY: String = "address"
         const val FAVORITE_KEY: String = "favorito"
-        const val ID_IMAGE_KEY: String = "idImage"
         const val POSITION_KEY: String = "idImage"
         const val MASCOT_LIST: String = "listamascota"
 
 
     }
 
+    //Adapter for class
     lateinit var adapterMascosta: MascotaAdapter
-    var mascotList: ArrayList<Mascota> = arrayListOf() //= MacostaData().listamascotas
+    //Array of class objects
+    var mascotList: ArrayList<Mascota> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Set toolbar title
         toolbar_main.title = resources.getString(R.string.title_activity_main)
-//        setTitle(resources.getString(R.string.title_activity_main))
 
-
+        //Register new element
         fab_registrar.setOnClickListener { view ->
             val intent = Intent(this, RegisterActivity::class.java)
 
             intent.putExtra("BUTTON_CLICKED", "register")
             startActivityForResult(intent, 0)
-
-
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-
         }
 
+        //See elements saved as favorites
         fab_favorito.setOnClickListener { v: View? ->
             val intent = Intent(this, FavoritesActivity::class.java)
 
@@ -74,15 +72,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             startActivityForResult(intent, 2)
         }
 
+        //Saved instance of elements
         if (savedInstanceState != null) {
             mascotList = savedInstanceState.getSerializable(MASCOT_LIST) as ArrayList<Mascota>
         }
 
-
+        //Trow msg if empty list (only at start occurred)
         if (mascotList.size == 0) {
-            Toast.makeText(applicationContext,
-                    "No dogs on list", Toast.LENGTH_SHORT).show()
+            Snackbar.make(main_id, getString(R.string.main_empty_list), Snackbar.LENGTH_LONG).show()
         }
+
+        //Start adapter
         adapterMascosta = MascotaAdapter(this, mascotList!!)
 
         list_dogs.adapter = adapterMascosta
@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+        // Go to view as read only
         val mascosta: Mascota = mascotList!![position]
 
         val intentShow = Intent(this, RegisterActivity::class.java)
@@ -113,14 +115,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         intentShow.putExtra(EMAIL_KEY, mascosta.Correo)
         intentShow.putExtra(PHONE_KEY, mascosta.Telefono)
         intentShow.putExtra("ADDRESS_KEY", mascosta.Ubicacion)
-        Log.d("Mascosta", mascosta.Ubicacion)
         intentShow.putExtra(FAVORITE_KEY, mascosta.Favorito)
         intentShow.putExtra("ID_IMAGE_KEY", mascosta.Id_Imagen)
         intentShow.putExtra(POSITION_KEY, position)
         intentShow.putExtra("SOURECE", "Main")
 
-
-//        startActivity(intentShow)
         startActivityForResult(intentShow, 10)
     }
 
@@ -158,7 +157,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 }
 
-
+// Adapter for class
 class MascotaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
         ArrayAdapter<Mascota>(context, 0, mascotas) {
 
@@ -179,12 +178,11 @@ class MascotaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
         tvRaza.text = dogName
         tvDate.text = mascota!!.Fecha
 
+        // if elements is favorite save on hash
         if (mascota.Favorito) {
             list_favorits.put(position, mascota)
 
-
         }
-
 
         ivDog.setImageBitmap(mascota.Id_Imagen)
         return rowView

@@ -33,8 +33,8 @@
             android:hint="@string/register_name"
             android:inputType="textPersonName"
             android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox_favorites"
-            app:layout_constraintHorizontal_bias="0.139"
+            app:layout_constraintEnd_toStartOf="@+id/textView_Raza"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,132 +42,132 @@
             android:id="@+id/spinner_razas"
             android:layout_width="153dp"
             android:layout_height="37dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/register_spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView_Raza"
-            app:layout_constraintTop_toBottomOf="@+id/label_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_foto"
             android:layout_width="82dp"
             android:layout_height="77dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/register_lable_imageView"
+            android:contentDescription="Image"
             android:gravity="center_horizontal"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/label_address"
             app:layout_constraintEnd_toStartOf="@+id/button_image"
-            app:layout_constraintHorizontal_bias="0.536"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_razas"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toEndOf="@+id/label_email"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Raza"
             app:srcCompat="@drawable/default_dog1" />
 
         <EditText
             android:id="@+id/label_email"
-            android:layout_width="168dp"
-            android:layout_height="64dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="220dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/register_email"
-            android:inputType="textEmailAddress"
+            android:inputType="textEmailAddress|textPersonName"
             android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@+id/label_phone"
-            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_foto" />
+            app:layout_constraintTop_toBottomOf="@+id/label_name" />
 
         <EditText
             android:id="@+id/label_phone"
-            android:layout_width="133dp"
-            android:layout_height="66dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="218dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/register_phone"
-            android:inputType="phone"
+            android:inputType="textPersonName|phone"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_image" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_email" />
 
         <EditText
             android:id="@+id/label_address"
-            android:layout_width="347dp"
-            android:layout_height="46dp"
+            android:layout_width="303dp"
+            android:layout_height="79dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="96dp"
             android:ems="10"
             android:hint="@string/register_address"
             android:inputType="text|textPersonName"
             android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_email" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/label_phone"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_razas" />
 
         <Button
             android:id="@+id/button_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="72dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="24dp"
             android:text="@string/register_buttonImage"
+            app:layout_constraintBottom_toTopOf="@+id/label_address"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_razas" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_razas"
+            app:layout_constraintVertical_bias="0.111" />
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
             android:onClick="finishActivity"
             android:text="@string/register_buttonCancel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_save"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_address" />
+            app:layout_constraintTop_toBottomOf="@+id/label_phone" />
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/register_buttonSave"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_address" />
+            app:layout_constraintEnd_toStartOf="@+id/checkBox_favorites"
+            app:layout_constraintHorizontal_bias="0.066"
+            app:layout_constraintStart_toEndOf="@+id/button_cancel"
+            app:layout_constraintTop_toBottomOf="@+id/label_phone" />
 
         <TextView
             android:id="@+id/textView_Raza"
             android:layout_width="60dp"
             android:layout_height="19dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/register_lable_spinner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_name" />
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="24dp"
+            android:text="Raza"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_razas"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
             android:id="@+id/checkBox_favorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/register_lable_checkbox"
+            android:layout_width="101dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginTop="8dp"
+            android:text="Favorito"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/label_address"
+            app:layout_constraintVertical_bias="0.23" />
 
 
     </android.support.constraint.ConstraintLayout>
