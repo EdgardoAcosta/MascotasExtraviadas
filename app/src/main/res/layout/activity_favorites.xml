@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,27 +8,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:screenOrientation="portrait"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
-
+    tools:context=".FavoritesActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_main"
+        android:id="@+id/toolbar_favorites"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ToolBarStyle"
-        />
+       />
 
     <ListView
-        android:id="@+id/list_dogs"
+        android:id="@+id/list_dogs_favorities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="7dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="56dp">
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        tools:layout_editor_absoluteX="3dp">
 
     </ListView>
 
