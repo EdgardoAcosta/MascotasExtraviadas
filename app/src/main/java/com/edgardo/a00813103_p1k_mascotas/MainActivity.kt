@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         fab_registrar.setOnClickListener { view ->
             val intent = Intent(this, RegisterActivity::class.java)
 
-            intent.putExtra(BUTTON_CLICKED, "register")
+            intent.putExtra("BUTTON_CLICKED", "register")
             startActivityForResult(intent, 0)
 
 
@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val mascosta: Mascota = mascotList!![position]
-        Log.d("Row Clicked", position.toString())
 
         val intentShow = Intent(this, RegisterActivity::class.java)
 

@@ -41,10 +41,14 @@ class FavoritesActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         toolbar_favorites.title = resources.getString(R.string.title_activity_favorites)
 
 
+
         val myToolbar = findViewById<View>(R.id.toolbar_favorites) as Toolbar
         setSupportActionBar(myToolbar)
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
 
 
         // Read value from MainActivity

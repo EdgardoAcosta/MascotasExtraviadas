@@ -10,6 +10,8 @@
 package com.edgardo.a00813103_p1k_mascotas
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -61,6 +63,8 @@ class RegisterActivity : AppCompatActivity() {
         setSupportActionBar(myToolbar)
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+
 
 
         // Check orientation of vie
@@ -100,6 +104,10 @@ class RegisterActivity : AppCompatActivity() {
 
         checkBox_favorites.setOnClickListener { checkBoxClicker(it) }
 
+        toolbar_register.setNavigationOnClickListener(View.OnClickListener {
+            finish()
+        })
+
 
         // Read value from MainActivity
 
@@ -110,7 +118,9 @@ class RegisterActivity : AppCompatActivity() {
         when (extras.getString("BUTTON_CLICKED")) {
             "show" -> {
 
-                val lbname = extras.getString(MainActivity.NAME_KEY)
+                val lbname = extras.getString(MainActivity.NAME_KEY) as String
+
+                Log.d("ToolName", resources.getString(R.string.title_activity_register_view) + lbname)
                 toolbar_register.title = resources.getString(R.string.title_activity_register_view) + lbname
 
                 val spinerRaza = extras.getInt(MainActivity.Raza_KEY)
@@ -163,6 +173,8 @@ class RegisterActivity : AppCompatActivity() {
 
             }
             "register" -> {
+                Log.d("ToolName", resources.getString(R.string.title_activity_register_add))
+
                 toolbar_register.title = resources.getString(R.string.title_activity_register_add)
                 Toast.makeText(applicationContext,
                         "${resources.getString(R.string.register_mode_register)}", Toast.LENGTH_SHORT).show()
