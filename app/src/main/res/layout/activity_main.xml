@@ -30,4 +30,14 @@
         app:backgroundTint="@android:color/darker_gray"
         app:srcCompat="@drawable/ic_favorite_24dp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_all_elements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="invisible"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
 </android.support.design.widget.CoordinatorLayout>

@@ -10,14 +10,12 @@
 package com.edgardo.a00813103_p1k_mascotas
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.app.ActionBar
+
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -28,7 +26,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Spinner
@@ -36,7 +33,6 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
-import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 

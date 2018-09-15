@@ -10,7 +10,6 @@
 package com.edgardo.a00813103_p1k_mascotas
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -25,8 +24,8 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-//var list_favorits: ArrayList<Int> = arrayListOf()
-var list_favorits: HashMap<Int, Mascota> = hashMapOf()
+var list_favorits: ArrayList<Mascota> = arrayListOf()
+var actual_view: Boolean = true // True for all_elemenst, false for favorites view
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
@@ -39,57 +38,81 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         const val FAVORITE_KEY: String = "favorito"
         const val POSITION_KEY: String = "idImage"
         const val MASCOT_LIST: String = "listamascota"
+        var MAIN_REQUEST_CODE: Int = 10
 
 
     }
 
     //Adapter for class
     lateinit var adapterMascosta: MascotaAdapter
+    lateinit var adapterFavoritos: MascotaAdapter
     //Array of class objects
-    var mascotList: ArrayList<Mascota> = arrayListOf()
+    var listToShow: ArrayList<Mascota> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Start adapter
+        adapterMascosta = MascotaAdapter(this, listToShow)
+        list_dogs.adapter = adapterMascosta
+        adapterFavoritos = MascotaAdapter(this, list_favorits)
+
         //Set toolbar title
         toolbar_main.title = resources.getString(R.string.title_activity_main)
 
         //Register new element
         fab_registrar.setOnClickListener { view ->
+
             val intent = Intent(this, RegisterActivity::class.java)
 
             intent.putExtra("BUTTON_CLICKED", "register")
             startActivityForResult(intent, 0)
         }
+        fab_all_elements.setOnClickListener { view ->
+
+            //Set toolbar title
+            toolbar_main.title = resources.getString(R.string.title_activity_main)
+
+            actual_view = true
+
+            fab_favorito.show()
+            fab_all_elements.hide()
+            fab_registrar.show()
+
+            list_dogs.adapter = adapterMascosta
+        }
 
         //See elements saved as favorites
         fab_favorito.setOnClickListener { v: View? ->
-            val intent = Intent(this, FavoritesActivity::class.java)
 
-            intent.putExtra("list_favorites", list_favorits)
-            startActivityForResult(intent, 2)
+
+            //Set toolbar title
+            toolbar_main.title = resources.getString(R.string.title_activity_favorites)
+
+            actual_view = false
+
+            list_dogs.adapter = adapterFavoritos
+
+            fab_favorito.hide()
+            fab_registrar.hide()
+            fab_all_elements.show()
+
+
         }
 
         //Saved instance of elements
         if (savedInstanceState != null) {
-            mascotList = savedInstanceState.getSerializable(MASCOT_LIST) as ArrayList<Mascota>
+            listToShow = savedInstanceState.getSerializable(MASCOT_LIST) as ArrayList<Mascota>
         }
 
         //Trow msg if empty list (only at start occurred)
-        if (mascotList.size == 0) {
+        if (listToShow.size == 0) {
             Snackbar.make(main_id, getString(R.string.main_empty_list), Snackbar.LENGTH_LONG).show()
         }
 
-        //Start adapter
-        adapterMascosta = MascotaAdapter(this, mascotList!!)
 
-        list_dogs.adapter = adapterMascosta
-
-        runOnUiThread {
-            adapterMascosta?.notifyDataSetChanged()
-        }
 
         list_dogs.setOnItemClickListener(this)
 
@@ -99,15 +122,31 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
 
-        outState?.putSerializable(MASCOT_LIST, mascotList)
+        outState?.putSerializable(MASCOT_LIST, listToShow)
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-        // Go to view as read only
-        val mascosta: Mascota = mascotList!![position]
-
         val intentShow = Intent(this, RegisterActivity::class.java)
+
+
+        // Go to view as read only
+        lateinit var mascosta: Mascota
+
+        if (actual_view) {
+
+            mascosta = listToShow!![position]
+            intentShow.putExtra("SOURECE", "Main")
+            //            MAIN_REQUEST_CODE = 10
+
+
+        } else {
+            mascosta = list_favorits[position]
+            intentShow.putExtra("SOURECE", "Favorite")
+            //            MAIN_REQUEST_CODE = 11
+
+
+        }
 
         intentShow.putExtra("BUTTON_CLICKED", "show")
         intentShow.putExtra(NAME_KEY, mascosta.Nombre)
@@ -118,9 +157,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         intentShow.putExtra(FAVORITE_KEY, mascosta.Favorito)
         intentShow.putExtra("ID_IMAGE_KEY", mascosta.Id_Imagen)
         intentShow.putExtra(POSITION_KEY, position)
-        intentShow.putExtra("SOURECE", "Main")
 
-        startActivityForResult(intentShow, 10)
+
+
+        startActivityForResult(intentShow, MAIN_REQUEST_CODE)
     }
 
 
@@ -128,32 +168,43 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         Log.d("Activity Result", requestCode.toString())
-        if (requestCode == 0) {
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            0 -> if (resultCode == Activity.RESULT_OK) {
                 val newMascota = data?.getSerializableExtra(RegisterActivity.NEW_REGISTER) as Mascota
 
-                mascotList!!.add(newMascota)
+                listToShow!!.add(newMascota)
                 list_favorits.clear()
+
+                for (d in listToShow) {
+                    if (d.Favorito)
+                        list_favorits.add(d)
+                }
+                adapterFavoritos.notifyDataSetChanged()
                 adapterMascosta?.notifyDataSetChanged()
             }
 
-        } else if (requestCode == 10) {
-            if (resultCode == Activity.RESULT_OK) {
+            10 -> if (resultCode == Activity.RESULT_OK) {
+
                 Log.d("Modify Favorite", requestCode.toString())
                 val pos = data?.extras?.getInt("positionModify")
                 val newValue = data?.extras?.getBoolean("valueModify")
                 if (pos != null) {
                     val auxInt: Int = pos
+                    list_dogs.adapter = adapterMascosta
+                    listToShow[auxInt].Favorito = newValue!!
 
-                    mascotList[auxInt].Favorito = newValue!!
                     list_favorits.clear()
-                    adapterMascosta?.notifyDataSetChanged()
+
+                    for (d in listToShow) {
+                        if (d.Favorito)
+                            list_favorits.add(d)
+                    }
+
+                    adapterFavoritos.notifyDataSetChanged()
+                    adapterMascosta.notifyDataSetChanged()
                 }
-
-
             }
         }
-
     }
 }
 
@@ -177,12 +228,6 @@ class MascotaAdapter(context: Context, mascotas: ArrayList<Mascota>) :
         tvName.text = mascota!!.Nombre
         tvRaza.text = dogName
         tvDate.text = mascota!!.Fecha
-
-        // if elements is favorite save on hash
-        if (mascota.Favorito) {
-            list_favorits.put(position, mascota)
-
-        }
 
         ivDog.setImageBitmap(mascota.Id_Imagen)
         return rowView
