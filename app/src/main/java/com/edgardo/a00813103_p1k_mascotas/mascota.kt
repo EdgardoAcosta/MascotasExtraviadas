@@ -4,7 +4,7 @@
  *  Clase que define la estructura de como es una mascota
  * Autor: <Edgardo Acosta Leal>,  <A00813103>
  *  Fecha de creación: 11/09/2018
- * Fecha de última modificación: 11/09/2018
+ * Fecha de última modificación: 12/09/2018
  */
 package com.edgardo.a00813103_p1k_mascotas
 
